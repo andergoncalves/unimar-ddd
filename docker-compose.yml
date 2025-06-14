@@ -1,49 +1,49 @@
 version: '3.8'
 
 services:
-#Servico de api bilbioteca
+#Serviço de API Biblioteca
   biblioteca-api:
     build: .
     ports:
-      "5001:5001"
+    - "5001:5001"
     environment:
       - FLASK_ENV=production
       - PYTHONPATH=/app
     volumes:
-      -./data:/app/scr/database
+      - ./data:/app/scr/database
     depends_on:
       - postgres
     restart: unless-stopped
     networks:
-      - biblioteca-netwroks
-    postgres:
-    #Serviço do banco de dados Postgres
-      image: postgres:13
-      environment:
-        POSTGRES_DB: biblioteca
-        POSTGRES_USER: biblioteca_user
-        POSTGRES_PASSWROD: biblioteca_icoma
-      volumes:
-        - postgres_data:/var/libpostgresql/data
-      ports:
-      - "5432-5432"
-      restart: unless-stopped
-      networks:
-        - biblioteca-networks
-
-    adminer:
-      image: adminer
-      ports:
-        - "8080:8080"
-      depends_on:
-        - postgres
-      restart: unless-stopped
-      networks:
-        - biblioteca-networks
-
+    - biblioteca-networks
+  postgres:
+  #Serviço de banco de dados PostgreSQL
+    image: postgres:13
+    environment:
+      POSTGRES_DB: biblioteca
+      POSTGRES_USER: biblioteca_user
+      POSTGRES_PASSWORD: biblioteca_icoma
     volumes:
-      postgres_data:
-
+      - postgres_data:/var/libpostgresql/data
+    ports:
+    - "5432:5432"
+    restart: unless-stopped
     networks:
-      biblioteca-networks:
-        driver: bridge
+    - biblioteca-networks
+
+  adminer:
+    image: adminer
+    ports:
+    - "8080:8080"
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    networks:
+    - biblioteca-networks
+Add commentMore actions
+volumes:
+  postgres_data:
+
+networks:
+  biblioteca-networks:
+    driver: bridge
