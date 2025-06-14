@@ -40,7 +40,7 @@ services:
     restart: unless-stopped
     networks:
     - biblioteca-networks
-Add commentMore actions
+
 volumes:
   postgres_data:
 
