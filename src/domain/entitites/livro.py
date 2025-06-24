@@ -1,6 +1,6 @@
 from database import dataclass, field
 from datetime import datetime
-from type impot Optional
+from type import Optional
 import uuid
 
 @dataclass
